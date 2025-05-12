@@ -6,11 +6,31 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Add Marks Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>Add marks</h1>
+        <form action="AddMarksServlet.do" method="POST">
+            <table>
+                <tr>
+                    <td>Student Number:</td>
+                    <td><input type="text" name="id"/></td>
+                </tr>
+                <tr>
+                    <td>Semester mark:</td>
+                    <td><input type="text" name="semesterMark"/></td>
+                </tr>
+                <tr>
+                    <td>Exam Mark:</td>
+                    <td><input type="text" name="examMark"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="ADD MARKS"/></td>
+                </tr>
+            </table>
+        </form>
     </body>
 </html>
