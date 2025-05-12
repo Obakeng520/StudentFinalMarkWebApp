@@ -47,5 +47,8 @@
             <li><a href="menu.html">MENU PAGE</a></li>
             <li><a href="index.html">HOME PAGE</a></li>
         </ul>
+        <p>
+            Please click <a href="LogoutServlet.do">here</a> to logout.
+        </p>
     </body>
 </html>
