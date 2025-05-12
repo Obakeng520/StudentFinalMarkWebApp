@@ -8,6 +8,10 @@
         <servlet-name>GetStatisticsServlet</servlet-name>
         <servlet-class>za.ac.tut.web.GetStatisticsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetStudentsByStatusServlet</servlet-name>
+        <servlet-class>za.ac.tut.web.GetStudentsByStatusServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddMarksServlet</servlet-name>
         <url-pattern>/AddMarksServlet.do</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>GetStatisticsServlet</servlet-name>
         <url-pattern>/GetStatisticsServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetStudentsByStatusServlet</servlet-name>
+        <url-pattern>/GetStudentsByStatusServlet.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
