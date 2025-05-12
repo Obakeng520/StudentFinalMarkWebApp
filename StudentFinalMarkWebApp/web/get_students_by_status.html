@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Get Failed Students Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Get Failed Students</h1>
+        <form action="GetStudentsByStatusServlet.do" method="POST">
+            <table>
+                <tr>
+                    <td>Status:</td>
+                    <td>
+                        <select name="status">
+                            <option value="Passed">PASSED</option>
+                            <option value="Supplementary">SUPPLEMENTARY</option>
+                            <option value="Fail">FAIL</option>
+                            <option value="Passed with Distinction">DISTINCTION</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="GET FAILED STUDENTS"/></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

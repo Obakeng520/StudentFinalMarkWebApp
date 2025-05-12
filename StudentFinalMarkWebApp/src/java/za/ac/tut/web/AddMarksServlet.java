@@ -6,81 +6,60 @@
 package za.ac.tut.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Date;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import za.ac.tut.ejb.bl.FinalMarkCalculatorLocal;
+import za.ac.tut.ejb.bl.StudentFacadeLocal;
+import za.ac.tut.entities.Student;
 
 /**
  *
- * @author Wisdom
+ * @author Obakeng
  */
 public class AddMarksServlet extends HttpServlet {
+    @EJB StudentFacadeLocal bf1;
+    @EJB FinalMarkCalculatorLocal sf1;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddMarksServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddMarksServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(true);
+        Long id = Long.parseLong(request.getParameter("id"));
+        Double semesterMark = Double.parseDouble(request.getParameter("semesterMark"));
+        Double examMark = Double.parseDouble(request.getParameter("examMark"));
+        Double total = sf1.CalculateMark(semesterMark,examMark);
+        String status = sf1.Result(total);
+        
+        session.setAttribute("semesterMark", semesterMark);
+        session.setAttribute("examMark", examMark);
+        session.setAttribute("total", total);
+        
+        Student student = createMarks(id,semesterMark,examMark,total,status);
+        bf1.create(student);
+        
+        RequestDispatcher disp = request.getRequestDispatcher("add_marks_outcome.jsp");
+        disp.forward(request, response);
+        
+        
+        
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    private Student createMarks(Long id, Double semesterMark, Double examMark, Double total, String status) {
+        Student student = new Student();
+        student.setId(id);
+        student.setSemesterMark(semesterMark);
+        student.setExamMark(examMark);
+        student.setTotalMark(total);
+        student.setStatus(status);
+        student.setCreationDate(new Date());
+        return student;
+    }
+
 
 }
